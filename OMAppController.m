@@ -86,7 +86,7 @@
 	[[NSNotificationCenter defaultCenter]
 		addObserver: self
 	 	   selector: @selector(didCommit:)
-	 	       name: COEditingContextDidCommitNotification
+	 	       name: COEditingContextDidChangeNotification
 	 	     object: editingContext];
 }
 
