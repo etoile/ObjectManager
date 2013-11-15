@@ -2,14 +2,49 @@ TODO ObjectManager
 ==================
 
 
+ObjectManager is loosely based on some mockups and ideas:
+
+- http://jesseross.com/clients/etoile/ui/concepts/03/workspace_100.jpg
+
+- http://jesseross.com/clients/etoile/ui/interface/800x480.png
+
+- http://jesseross.com/clients/etoile/ui/concepts/01/workspace_300.jpg
+
+- http://jesseross.com/clients/etoile/ui/concepts/02/workspace_400.jpg
+
+
+Current Work
+------------
+
 - Fix manager window title
 
 - Fix lock error logged in the console
+
+- Fix Show Inspector crash
+
+- Fix Tag Filter crash when becoming first responder
+
+- Fix Icon View crash
+
+- Force grid alignment in the Icon View (letting the user positions icons seems useless)
+
 
 
 
 Missing Features
 ----------------
+
+- Opening other stores than the default one
+
+	- Add 'Open Other CoreObject Store…' to the Application menu
+	
+		- Once a CoreObject Store is picked in the Open panel, a new manager window appears
+		
+	- Needs some badges or hints (perhaps in the titlebar) to indicate which manager windows relate to which stores
+	
+- New Object From Template…
+
+	- Add a template picker to EtoileUI
 
 - Pick and drop to move objects around
 
@@ -28,6 +63,8 @@ Missing Features
 	- ?
 
 - Support opening multiple manager windows
+
+- Fine-grained control over the grid used in the Icon View
 
 - Note Management 
 
@@ -58,3 +95,11 @@ Future Work
 - Device Representations e.g. external hard disks
 
 - Filesystem Browsing (as an advanced option) using COFile and CODirectory
+
+- Activity Reporting to track and manage progresses copy, deletion, downloads, etc. in a Unified UI
+
+	- Either in the ObjectManager itself or in a distinct application (e.g. Activity Manager)
+	
+	- Etoile or CoreObject-based applications can use this UI to report about their background tasks
+	
+		- Provide a special COObject subclass in CoreObject or EtoileUI to report progresses (e.g. CO(User)Operation). This would let us use the store as persistent distributed notification center. For example, a WebBrowser makes a new commit on a COUserOperation instance each time, the download progresses a bit, and the Activity Reporter automatically gets a store update as a result.
