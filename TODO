@@ -1,0 +1,60 @@
+TODO ObjectManager
+==================
+
+
+- Fix manager window title
+
+- Fix lock error logged in the console
+
+
+
+Missing Features
+----------------
+
+- Pick and drop to move objects around
+
+	- Link (default)
+	- Copy (option key)
+	- Move (command + option key or perhaps just command key)
+
+- Deleted objects smart group and Object Undeletion
+
+- Time-based smart groups (in When section of the source list)
+
+- Import/Export. ObjectManager should support just few basic types at least initially:
+
+	- Bookmark
+	- Image
+	- ?
+
+- Support opening multiple manager windows
+
+- Note Management 
+
+	- Note Library
+	
+	- Notes can include Lists e.g. Todo or Buy lists.
+
+	- Simple Note View (actived if the Notes library is selected)
+	
+		- Something similar to Google Keep but a bit smarter and with a better usability
+
+		- Would provide a very basic Outliner to edit lists
+		
+	- Notes can be opened in a real Outliner (notes are just normal outliner documents) or a Structured Text Editor
+	
+	- Full-blown Outliner documents can be browsed in the ObjectManager (using the Note View or the List  view)
+
+
+Future Work
+-----------
+
+- Library Management (creation, deletion, export and import)
+
+- Temporal Search against the store 
+	
+	- For now we just support searching the latest object revisions in memory
+
+- Device Representations e.g. external hard disks
+
+- Filesystem Browsing (as an advanced option) using COFile and CODirectory
