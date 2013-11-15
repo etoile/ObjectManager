@@ -24,15 +24,27 @@ Current Work
 
 - Fix Tag Filter crash when becoming first responder
 
+- Improve Tag Filter Filter to give up the focus on a cancel button click (see the Search field behavior in Mac OS X Finder)
+
+	- Requires a custom EtoileUI control or a NSSearchFieldCell subclass that implements this behavior (there is no delegate API to do so)
+
 - Fix Icon View crash
 
 - Force grid alignment in the Icon View (letting the user positions icons seems useless)
 
+- Finish Search support in History Browser
 
+- Improve History Browser title
 
 
 Missing Features
 ----------------
+
+- Opening Objects (using UTIs to decide which service we use)
+
+	- Requires some service registry to bind editors/viewers to UTIs
+	
+	- Implement Open in History Browser (for opening a past version)
 
 - Opening other stores than the default one
 
