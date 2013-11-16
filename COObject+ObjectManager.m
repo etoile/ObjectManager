@@ -20,4 +20,27 @@
 	return [[self persistentRoot] creationDate];
 }
 
+- (NSNumber *) exportSize
+{
+	return [[[self persistentRoot] attributes] objectForKey: COPersistentRootAttributeExportSize];
+}
+
+- (NSNumber *) usedSize
+{
+	return [[[self persistentRoot] attributes] objectForKey: COPersistentRootAttributeUsedSize];
+}
+
+- (NSString *) sizeDescription
+{
+	ETByteSizeFormatter *formatter = AUTORELEASE([ETByteSizeFormatter new]);
+	NSString *description = [formatter stringForObjectValue: [self usedSize]];
+	
+	if ([[self persistentRoot] isCopy])
+	{
+		description = [description stringByAppendingFormat: _(@" (%@ exported)"),
+			[formatter stringForObjectValue: [self exportSize]]];
+	}
+	return description;
+}
+
 @end

@@ -125,18 +125,27 @@
 	// NOTE: Could be put in a package description plist or something similar.
 	ETModelDescriptionRepository *repo = [[self editingContext] modelRepository];
 	ETEntityDescription *dateType = [repo entityDescriptionForClass: [NSDate class]];
+	ETEntityDescription *stringType = [repo entityDescriptionForClass: [NSString class]];
 	ETEntityDescription *entity = [repo entityDescriptionForClass: [COObject class]];
 
 	ETPropertyDescription *modificationDate =
 		[ETPropertyDescription descriptionWithName: @"modificationDate" type: dateType];
+	[modificationDate setReadOnly: YES];
 	ETPropertyDescription *creationDate =
 		[ETPropertyDescription descriptionWithName: @"creationDate" type: dateType];
-	
+	[creationDate setReadOnly: YES];
+	ETPropertyDescription *sizeDescription =
+		[ETPropertyDescription descriptionWithName: @"sizeDescription" type: stringType];
+	[sizeDescription setDerived: YES];
+	[sizeDescription setDisplayName: _(@"Size")];
+		
 	[entity addPropertyDescription: modificationDate];
 	[entity addPropertyDescription: creationDate];
+	[entity addPropertyDescription: sizeDescription];
 
 	[repo addDescription: creationDate];
 	[repo addDescription: modificationDate];
+	[repo addDescription: sizeDescription];
 
 	NSMutableArray *warnings = [NSMutableArray array];
 

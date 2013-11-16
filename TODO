@@ -24,6 +24,10 @@ Current Work
 
 - Fix incorrect read-only vs readwrite properties in Inspector
 
+- Fix Inspector appearing very briefly at the wrong location (if there is no event following the mouse up event in the menu)
+
+	- The layout update phase (run when we are done processing the mouse up in the menu) doesn't position the inspector at all... Another event must occur to run a new layout phase to position the inspector correctly.
+
 - Fix Tag Filter crash when becoming first responder
 
 - Improve Tag Filter Filter to give up the focus on a cancel button click (see the Search field behavior in Mac OS X Finder)
@@ -42,13 +46,10 @@ Current Work
 Missing Features
 ----------------
 
-- Show Object Size in List View
-
 - Improve Inspector
 
 	- Add fields
-	
-		- Object Size
+
 		- Variations (aka Branches)
 		- Cheap Copy checkbox (or something label telling the object is a cheap copy) + a button to show the parent or original Object
 
@@ -134,3 +135,11 @@ Future Work
 	- Etoile or CoreObject-based applications can use this UI to report about their background tasks
 	
 		- Provide a special COObject subclass in CoreObject or EtoileUI to report progresses (e.g. CO(User)Operation). This would let us use the store as persistent distributed notification center. For example, a WebBrowser makes a new commit on a COUserOperation instance each time, the download progresses a bit, and the Activity Reporter automatically gets a store update as a result.
+
+
+Open Questions
+--------------
+
+- For a library, should we present a size that includes the children objects
+
+	- For COGroup/Tag size, we consider that children objects are not really contained and doesn't enter in the size computation (moreover knowing the boundaries for the size computation could be really tricky for nested groups)

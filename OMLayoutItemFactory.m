@@ -24,13 +24,12 @@
 - (ETOutlineLayout *) listLayoutForBrowser
 {
 	ETOutlineLayout *layout = [ETOutlineLayout layoutWithObjectGraphContext: [self objectGraphContext]];
-	// TODO: Show the size once we know how to compute the core object sizes 
-	// (see TODO in +[COObject newEntityDescription])
+	// TODO: Retrieve the header names from -[ETPropertyDescription displayName]
 	NSArray *headerNames = A(@"", @"Name", @"Modification Date", @"Creation Date", 
-		@"Type", @"Version", @"Tags");
+		@"Size", @"Type", @"Version", @"Tags");
 
 	[layout setDisplayedProperties: A(@"icon", @"name", @"modificationDate", @"creationDate", 
-		@"typeDescription", @"revisionDescription", @"tagDescription")];
+		@"sizeDescription", @"typeDescription", @"revisionDescription", @"tagDescription")];
 
 	[layout setFormatter: [self dateFormatter] forProperty: @"modificationDate"];
 	[layout setFormatter: [self dateFormatter] forProperty: @"creationDate"];
@@ -39,9 +38,13 @@
 	[layout setContentFont: [NSFont controlContentFontOfSize: 12]];
 	[[layout tableView] setUsesAlternatingRowBackgroundColors: YES];
 
+	// TODO: Support textAlignment property in ETColumnFragment or something similar...
+	[(NSCell *)[(NSTableColumn *)[layout columnForProperty: @"sizeDescription"] dataCell] setAlignment: NSRightTextAlignment];
+	
 	[[layout columnForProperty: @"name"] setWidth: 180];
 	[[layout columnForProperty: @"modificationDate"] setWidth: 180];
 	[[layout columnForProperty: @"creationDate"] setWidth: 180];
+
 
 	[layout setSortable: YES];
 
@@ -397,7 +400,7 @@
 	ETModelDescriptionRenderer *renderer = [ETModelDescriptionRenderer renderer];
 	
 	// NOTE: Could add back later 'icon' and 'content'
-	[renderer setRenderedPropertyNames: A(@"displayName", @"typeDescription",
+	[renderer setRenderedPropertyNames: A(@"displayName", @"typeDescription", @"sizeDescription", 
 		@"modificationDate", @"creationDate", @"revisionDescription", @"tags")];
 	[(ETLayoutItem *)[[renderer templateItems] mappedCollection] setWidth: 200];
 

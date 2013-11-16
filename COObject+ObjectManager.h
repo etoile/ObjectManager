@@ -21,4 +21,5 @@
 @interface COObject (ObjectManager)
 @property (nonatomic, readonly) NSDate *modificationDate;
 @property (nonatomic, readonly) NSDate *creationDate;
+@property (nonatomic, readonly) NSString *sizeDescription;
 @end
