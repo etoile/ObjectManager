@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		601C1D6F180C4DE400CED07E /* COObject+ObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 601C1D6E180C4DE400CED07E /* COObject+ObjectManager.m */; };
+		601DC775183681FA00CF68A0 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 601DC774183681FA00CF68A0 /* TODO */; };
 		6068BE081474286400953B26 /* EtoileFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6068BDF21474283C00953B26 /* EtoileFoundation.framework */; };
 		6068BE301474287F00953B26 /* EtoileUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6068BE1B1474287900953B26 /* EtoileUI.framework */; };
 		6068BE37147429E000953B26 /* OMAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6068BE36147429E000953B26 /* OMAppController.m */; };
@@ -161,13 +162,6 @@
 			remoteGlobalIDString = 791B4E2D1299C79300CCF472;
 			remoteInfo = Test;
 		};
-		6075493D17B7A5C800678090 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60734604154176D4002558C7 /* CoreObject.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 66C3669A17B426BF009ACF2F;
-			remoteInfo = Typewriter;
-		};
 		60BED8BC17EDDD42005776CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6068BDE81474283C00953B26 /* EtoileFoundation.xcodeproj */;
@@ -215,6 +209,7 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		601C1D6D180C4DE400CED07E /* COObject+ObjectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "COObject+ObjectManager.h"; sourceTree = "<group>"; };
 		601C1D6E180C4DE400CED07E /* COObject+ObjectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "COObject+ObjectManager.m"; sourceTree = "<group>"; };
+		601DC774183681FA00CF68A0 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		6068BDE81474283C00953B26 /* EtoileFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EtoileFoundation.xcodeproj; path = ../../../Frameworks/EtoileFoundation/EtoileFoundation.xcodeproj; sourceTree = SOURCE_ROOT; };
 		6068BE0C1474287900953B26 /* EtoileUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EtoileUI.xcodeproj; path = ../../../Frameworks/EtoileUI/EtoileUI.xcodeproj; sourceTree = SOURCE_ROOT; };
 		6068BE35147429E000953B26 /* OMAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMAppController.h; sourceTree = "<group>"; };
@@ -312,6 +307,7 @@
 				60734604154176D4002558C7 /* CoreObject.xcodeproj */,
 				6068BE0C1474287900953B26 /* EtoileUI.xcodeproj */,
 				60E6AC07147B9B3B00AD684D /* IconKit.xcodeproj */,
+				601DC774183681FA00CF68A0 /* TODO */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -387,7 +383,6 @@
 				6073460D154176D4002558C7 /* Test */,
 				60BED8C817EDDD43005776CC /* BenchmarkCoreObject */,
 				6037746D16B9DDBC00B7EEB5 /* BasicPersistence */,
-				6075493E17B7A5C800678090 /* Typewriter.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -597,13 +592,6 @@
 			remoteRef = 6073460C154176D4002558C7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6075493E17B7A5C800678090 /* Typewriter.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Typewriter.app;
-			remoteRef = 6075493D17B7A5C800678090 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		60BED8C817EDDD43005776CC /* BenchmarkCoreObject */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
@@ -628,6 +616,7 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				60B98EDC180461C200D1FFFF /* Commits in Resources */,
+				601DC775183681FA00CF68A0 /* TODO in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

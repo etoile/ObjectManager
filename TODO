@@ -20,7 +20,9 @@ Current Work
 
 - Fix lock error logged in the console
 
-- Fix Show Inspector crash
+- Refresh Inspector on a selection change in the content view
+
+- Fix incorrect read-only vs readwrite properties in Inspector
 
 - Fix Tag Filter crash when becoming first responder
 
@@ -39,6 +41,23 @@ Current Work
 
 Missing Features
 ----------------
+
+- Show Object Size in List View
+
+- Improve Inspector
+
+	- Add fields
+	
+		- Object Size
+		- Variations (aka Branches)
+		- Cheap Copy checkbox (or something label telling the object is a cheap copy) + a button to show the parent or original Object
+
+	- Support showing additional fields based on the object type
+	
+		- Image: preview and image size (width and height)
+		- Bookmark: URL
+		
+	- Decide whether we should list attachements and their URLs
 
 - Opening Objects (using UTIs to decide which service we use)
 

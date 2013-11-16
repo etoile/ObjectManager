@@ -398,7 +398,7 @@
 	
 	// NOTE: Could add back later 'icon' and 'content'
 	[renderer setRenderedPropertyNames: A(@"displayName", @"typeDescription",
-		@"modificationDate", @"creationDate", @"lastVersionDescription", @"tags")];
+		@"modificationDate", @"creationDate", @"revisionDescription", @"tags")];
 	[(ETLayoutItem *)[[renderer templateItems] mappedCollection] setWidth: 200];
 
 	//[[[renderer entityLayout] positionalLayout] setIsContentSizeLayout: YES];
