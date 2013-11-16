@@ -26,10 +26,10 @@
 	ETOutlineLayout *layout = [ETOutlineLayout layoutWithObjectGraphContext: [self objectGraphContext]];
 	// TODO: Retrieve the header names from -[ETPropertyDescription displayName]
 	NSArray *headerNames = A(@"", @"Name", @"Modification Date", @"Creation Date", 
-		@"Size", @"Type", @"Version", @"Tags");
+		@"Size", @"Type", @"Tags");
 
 	[layout setDisplayedProperties: A(@"icon", @"name", @"modificationDate", @"creationDate", 
-		@"sizeDescription", @"typeDescription", @"revisionDescription", @"tagDescription")];
+		@"sizeDescription", @"typeDescription", @"tagDescription")];
 
 	[layout setFormatter: [self dateFormatter] forProperty: @"modificationDate"];
 	[layout setFormatter: [self dateFormatter] forProperty: @"creationDate"];
