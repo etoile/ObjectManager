@@ -22,12 +22,14 @@
 
 - (NSNumber *) exportSize
 {
-	return [[[self persistentRoot] attributes] objectForKey: COPersistentRootAttributeExportSize];
+	NSNumber *size = [[[self persistentRoot] attributes] objectForKey: COPersistentRootAttributeExportSize];
+	return (size != nil ? size : [NSNumber numberWithUnsignedInteger: 0]);
 }
 
 - (NSNumber *) usedSize
 {
-	return [[[self persistentRoot] attributes] objectForKey: COPersistentRootAttributeUsedSize];
+	NSNumber *size = [[[self persistentRoot] attributes] objectForKey: COPersistentRootAttributeUsedSize];
+	return (size != nil ? size : [NSNumber numberWithUnsignedInteger: 0]);
 }
 
 - (NSString *) sizeDescription
