@@ -37,6 +37,24 @@
 #pragma mark - 
 #pragma mark Accessing UI Objects
 
+- (void) setContentViewItem: (ETLayoutItemGroup *)anItem
+{
+	[self stopObserveObject: anItem forNotificationName: ETItemGroupSelectionDidChangeNotification];
+	ASSIGN(contentViewItem, anItem);
+	[self startObserveObject: anItem
+	     forNotificationName: ETItemGroupSelectionDidChangeNotification
+	                selector: @selector(contentViewSelectionDidChange:)];
+}
+
+- (void) setSourceListItem: (ETLayoutItemGroup *)anItem
+{
+	[self stopObserveObject: anItem forNotificationName: ETItemGroupSelectionDidChangeNotification];
+	ASSIGN(sourceListItem, anItem);
+	[self startObserveObject: anItem
+	     forNotificationName: ETItemGroupSelectionDidChangeNotification
+	                selector: @selector(sourceListSelectionDidChange:)];
+}
+
 - (ETLayoutItemGroup *) topBarItem
 {
 	return (id)[[self content] itemForIdentifier: @"browserTopBar"];
@@ -209,6 +227,12 @@
 	}
 }
 
+- (void) contentViewSelectionDidChange: (NSNotification *)aNotif
+{
+	ETLog(@"Did change selection in %@", [aNotif object]);
+	[self updateInspector];
+}
+
 #pragma mark -
 #pragma mark Edition Coordinator
 
@@ -292,13 +316,19 @@
 	return ([self inspectorItem] == nil);
 }
 
-- (void) showInspector
+- (ETLayoutItemGroup *) newInspectorItem
 {
 	NSSize size = NSMakeSize([[OMLayoutItemFactory factory] defaultInspectorWidth], [[self bodyItem] height]);
 	ETLayoutItemGroup *inspectorItem =
 		[[OMLayoutItemFactory factory] inspectorWithObject: [self selectedObjectInContentView]
 	                                                  size: size
 	                                            controller: self];
+	return inspectorItem;
+}
+
+- (void) showInspector
+{
+	ETLayoutItemGroup *inspectorItem = [self newInspectorItem];
 
 	[[self contentViewWrapperItem] setWidth: [[self contentViewWrapperItem] width] - [inspectorItem width]];
 	[[self bodyItem] addItem: inspectorItem];
@@ -308,6 +338,22 @@
 {
 	ETAssert([[self bodyItem] containsItem: [self inspectorItem]]);
 	[[self bodyItem] removeItem: [self inspectorItem]];
+}
+
+- (void) updateInspector
+{
+	if ([self isInspectorHidden])
+		return;
+
+	CGFloat oldInspectorWidth = [[self inspectorItem] width];
+
+	[[self bodyItem] removeItem: [self inspectorItem]];
+
+	ETLayoutItemGroup *inspectorItem = [self newInspectorItem];
+
+	[[self contentViewWrapperItem] setWidth:
+		[[self contentViewWrapperItem] width] + (oldInspectorWidth - [inspectorItem width])];
+	[[self bodyItem] addItem: inspectorItem];
 }
 
 - (ETLayoutItem *) tagLibraryItem

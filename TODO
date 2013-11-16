@@ -20,8 +20,6 @@ Current Work
 
 - Fix lock error logged in the console
 
-- Refresh Inspector on a selection change in the content view
-
 - Fix tag collection editor in Inspector
 
 - Fix missing commits for object editing from the Inspector

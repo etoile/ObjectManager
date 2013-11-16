@@ -305,9 +305,6 @@
 	}
 
 	[aController setSourceListItem: itemGroup];
-	[aController startObserveObject: itemGroup
-	            forNotificationName: ETItemGroupSelectionDidChangeNotification
-                           selector: @selector(sourceListSelectionDidChange:)];
 
 	NSOutlineView *ov = (NSOutlineView *)[[itemGroup layout] tableView];
 	[ov reloadData];
