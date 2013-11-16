@@ -316,20 +316,13 @@
 	return ([self inspectorItem] == nil);
 }
 
-- (ETLayoutItemGroup *) newInspectorItem
+- (void) showInspector
 {
 	NSSize size = NSMakeSize([[OMLayoutItemFactory factory] defaultInspectorWidth], [[self bodyItem] height]);
 	ETLayoutItemGroup *inspectorItem =
 		[[OMLayoutItemFactory factory] inspectorWithObject: [self selectedObjectInContentView]
 	                                                  size: size
 	                                            controller: self];
-	return inspectorItem;
-}
-
-- (void) showInspector
-{
-	ETLayoutItemGroup *inspectorItem = [self newInspectorItem];
-
 	[[self contentViewWrapperItem] setWidth: [[self contentViewWrapperItem] width] - [inspectorItem width]];
 	[[self bodyItem] addItem: inspectorItem];
 }
@@ -347,13 +340,11 @@
 
 	CGFloat oldInspectorWidth = [[self inspectorItem] width];
 
-	[[self bodyItem] removeItem: [self inspectorItem]];
-
-	ETLayoutItemGroup *inspectorItem = [self newInspectorItem];
-
-	[[self contentViewWrapperItem] setWidth:
-		[[self contentViewWrapperItem] width] + (oldInspectorWidth - [inspectorItem width])];
-	[[self bodyItem] addItem: inspectorItem];
+	[self hideInspector];
+	/* Just resize the content view wrapper to match -showInspector expectations (we could simply 
+	   do [contentViewWrapperItem updateLayoutRecursively: NO] too) */
+	[[self contentViewWrapperItem] setWidth: [[self contentViewWrapperItem] width] + oldInspectorWidth];
+	[self showInspector];
 }
 
 - (ETLayoutItem *) tagLibraryItem
