@@ -16,8 +16,6 @@ ObjectManager is loosely based on some mockups and ideas:
 Current Work
 ------------
 
-- Fix manager window title
-
 - Fix lock error logged in the console
 
 - Fix tag collection editor in Inspector
@@ -114,6 +112,8 @@ Missing Features
 	
 	- Full-blown Outliner documents can be browsed in the ObjectManager (using the Note View or the List  view)
 
+- Add resize separator between source list, content view and inspector (this means to support resize separators in EtoileUI)
+
 
 Future Work
 -----------
@@ -145,3 +145,5 @@ Open Questions
 - For a library, should we present a size that includes the children objects
 
 	- For COGroup/Tag size, we consider that children objects are not really contained and doesn't enter in the size computation (moreover knowing the boundaries for the size computation could be really tricky for nested groups)
+
+- How should we construct the manager window title for a multiple selection in the source list (for now we just use the first selected object name + 'and more')

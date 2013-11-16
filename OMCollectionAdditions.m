@@ -31,7 +31,8 @@
 
 + (COSmartGroup *) unionGroupWithCollections: (id <ETCollection>)collections
 {
-	COSmartGroup *selectionGroup = AUTORELEASE([[COSmartGroup alloc] init]);
+	COSmartGroup *selectionGroup = AUTORELEASE([[COSmartGroup alloc]
+		initWithObjectGraphContext: [COObjectGraphContext objectGraphContext]]);
 	COContentBlock block = ^() {
 		NSMutableSet *objects = [NSMutableSet set];
 

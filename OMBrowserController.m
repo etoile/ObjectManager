@@ -225,6 +225,16 @@
 	{
 		[self setBrowsedGroup: [self unionGroupWithTags: [self selectedTags]]];
 	}
+
+	NSString *browserTitle = [[selectedObjects firstObject] name];
+	BOOL isMultipleSelection = (isSingleSelection == NO);
+
+	if (isMultipleSelection)
+	{
+		browserTitle = [browserTitle stringByAppendingString: _(@" and more")];
+	}
+
+	[[self content] setName: browserTitle];
 }
 
 - (void) contentViewSelectionDidChange: (NSNotification *)aNotif
