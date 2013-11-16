@@ -22,7 +22,9 @@ Current Work
 
 - Refresh Inspector on a selection change in the content view
 
-- Fix incorrect read-only vs readwrite properties in Inspector
+- Fix tag collection editor in Inspector
+
+- Fix missing commits for object editing from the Inspector
 
 - Fix Inspector appearing very briefly at the wrong location (if there is no event following the mouse up event in the menu)
 
@@ -135,6 +137,8 @@ Future Work
 	- Etoile or CoreObject-based applications can use this UI to report about their background tasks
 	
 		- Provide a special COObject subclass in CoreObject or EtoileUI to report progresses (e.g. CO(User)Operation). This would let us use the store as persistent distributed notification center. For example, a WebBrowser makes a new commit on a COUserOperation instance each time, the download progresses a bit, and the Activity Reporter automatically gets a store update as a result.
+
+- Use Small Control Sizes in the Inspector (or at least a small font size)
 
 
 Open Questions

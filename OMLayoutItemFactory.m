@@ -400,7 +400,7 @@
 	ETModelDescriptionRenderer *renderer = [ETModelDescriptionRenderer renderer];
 	
 	// NOTE: Could add back later 'icon' and 'content'
-	[renderer setRenderedPropertyNames: A(@"displayName", @"typeDescription", @"sizeDescription", 
+	[renderer setRenderedPropertyNames: A(@"name", @"typeDescription", @"sizeDescription", 
 		@"modificationDate", @"creationDate", @"revisionDescription", @"tags")];
 	[(ETLayoutItem *)[[renderer templateItems] mappedCollection] setWidth: 200];
 
