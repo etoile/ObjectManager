@@ -16,6 +16,12 @@ ObjectManager is loosely based on some mockups and ideas:
 Current Work
 ------------
 
+- Disable New Object menu item if the selected object in the source list is not a library
+
+- Fix commit crash (Attempted to commit changes to deleted persistent root) on Undo/Redo following a selective undo
+
+- Fix deleted tags present in COObject.tags incoming relationship
+
 - Fix lock error logged in the console
 
 - Fix tag collection editor in Inspector

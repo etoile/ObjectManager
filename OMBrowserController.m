@@ -192,7 +192,8 @@
 	// TODO: Finish filtering on whenPredicate & whatPredicate & searchPredicate
 	NSPredicate *predicate =
 		[NSPredicate predicateWithFormat: @"ALL %@ IN tags", [self selectedTags]];
-	COSmartGroup *tagFilteredGroup = AUTORELEASE([[COSmartGroup alloc] init]);
+	COSmartGroup *tagFilteredGroup = AUTORELEASE([[COSmartGroup alloc]
+		initWithObjectGraphContext: [COObjectGraphContext objectGraphContext]]);
 
 	[tagFilteredGroup setTargetCollection:
 		[COSmartGroup unionGroupWithCollections: [self whereGroup]]];
@@ -634,7 +635,7 @@
 
 - (IBAction) duplicate: (id)sender
 {
-	[(OMBrowserContentController *)[contentViewItem controller] duplicate: sender];
+	[(OMBrowserContentController *)[contentViewItem controller] duplicate];
 	[[self allObjectGroup] refresh];
 }
 

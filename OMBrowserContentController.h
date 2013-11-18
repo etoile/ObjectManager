@@ -33,11 +33,11 @@ content is presented in an ObjectManager window */
 
 - (void) prepareForNewRepresentedObject: (id)anObject;
 - (void) addTag: (COGroup *)aTag;
+- (void) duplicate;
 
 /** @taskunit Actions */
 
 - (IBAction) remove: (id)sender;
-- (IBAction) duplicate: (id)sender;
 
 @end
 

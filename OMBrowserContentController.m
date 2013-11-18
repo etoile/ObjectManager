@@ -192,7 +192,7 @@
 }
 
 // NOTE: All Objects Group is refreshed in -[OMBrowserController duplicate:]
-- (IBAction) duplicate: (id)sender
+- (void) duplicate
 {
 	NSArray *selectedObjects = [self selectedObjects];
 
