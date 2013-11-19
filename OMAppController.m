@@ -10,6 +10,11 @@
 #import "OMLayoutItemFactory.h"
 #import "OMModelFactory.h"
 
+// FIXME: Remove
+@interface ETWidgetLayout (Private)
+- (NSView *) layoutViewWithoutScrollView;
+@end
+
 @implementation OMAppController
 
 @synthesize currentPresentationTitle, editingContext, mainUndoTrack;
@@ -37,7 +42,10 @@
 	[[ETApp mainMenu] addItem: [ETApp objectMenuItem]];
 	[[ETApp mainMenu] addItem: [ETApp editMenuItem]];
 	[[ETApp mainMenu] addItem: [ETApp viewMenuItem]];
-	
+
+	[[[[ETApp editMenuItem] submenu] itemWithTitle: _(@"Select All")]
+		setAction: @selector(selectAllExceptInSourceList:)];
+
 	[[[[ETApp viewMenuItem] submenu] itemWithTitle: _(@"List")] setState: NSOnState];
 	ASSIGN(currentPresentationTitle,  _(@"List"));
 }
@@ -119,6 +127,18 @@
 	ETAssert([mainUndoTrack currentNode] != nil);
 }
 
+- (void) prepareInitialFocusedItemInsideItem: (ETLayoutItemGroup *)browser
+{
+	// FIXME: Remove this workaround once we support some mechanism to declare a
+	// initial focused item (similar to -[NSWindow initialFirstResponder])
+	ETLayoutItem *contentViewItem = [browser itemForIdentifier: @"contentView"];
+	id widgetView = [(ETWidgetLayout *)[contentViewItem layout] layoutViewWithoutScrollView];
+
+	ETAssert(widgetView != nil);
+	ETAssert([ETTool activeTool] != nil);
+	[[ETTool activeTool] makeFirstKeyResponder: widgetView];
+}
+
 - (IBAction) browseMainGroup: (id)sender
 {
 	OMModelFactory *modelFactory =
@@ -127,8 +147,12 @@
 	ETLayoutItemGroup *browser = [itemFactory browserWithGroup: [modelFactory sourceListGroups]
 	                                            editingContext: [self editingContext]];
 
-	[[itemFactory windowGroup] addObject: browser];
+	[[itemFactory windowGroup] addItem: browser];
 	[openedGroups addObject: [modelFactory allObjectGroup]];
+
+	// FIXME: Call -prepareInitialFocusedItemInsideItem: with some delay since
+	// the view are not backed by windows yet (i.e. the layout update is run just
+	// before the next event)
 }
 
 - (IBAction) undo: (id)sender

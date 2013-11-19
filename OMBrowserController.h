@@ -70,11 +70,29 @@
 
 /** @taskunit Object Insertion and Deletion Actions */
 
-- (IBAction) add: (id)sender;
+/**
+ * We use a dedicated -addNewObject: action and not add: to force this action 
+ * message to be dispatched on OMBrowserController rather than directly on 
+ * OMBrowserContentController in the responder chain.
+ *
+ * EtoileUI requires that children doesn't access or depend their parent 
+ * related aspects (all requests must be sent downwards in the item tree). So 
+ * OMBrowserController can access OMBrowserContentController, but the reverse 
+ * is not true.
+ */
+- (IBAction) addNewObject: (id)sender;
 - (IBAction) addNewObjectFromTemplate: (id)sender;
 - (IBAction) addNewTag: (id)sender;
 - (IBAction) addNewGroup: (id)sender;
-- (IBAction) remove: (id)sender;
+- (IBAction) duplicate: (id)sender;
+/**
+ * We use a dedicated -delete: action and not remove: to force this action 
+ * message to be dispatched on OMBrowserController rather than directly on 
+ * OMBrowserContentController in the responder chain.
+ *
+ * See explanations in -addNewObject:.
+ */
+- (IBAction) delete: (id)sender;
 
 /** @taskunit Presentation Actions */
 
@@ -93,9 +111,8 @@
 - (IBAction) markVersion: (id)sender;
 - (IBAction) revertTo: (id)sender;
 - (IBAction) browseHistory: (id)sender;
-- (IBAction) duplicate: (id)sender;
-- (IBAction) delete: (id)sender;
 - (IBAction) import: (id)sender;
 - (IBAction) export: (id)sender;
+- (IBAction) selectAllExceptInSourceList: (id)sender;
 
 @end

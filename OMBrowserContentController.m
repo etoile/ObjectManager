@@ -11,6 +11,11 @@
 #import "OMLayoutItemFactory.h"
 #import "OMAppController.h"
 
+// FIXME: Remove
+@interface ETWidgetLayout (Private)
+- (NSView *) layoutViewWithoutScrollView;
+@end
+
 @implementation OMBrowserContentController
 
 - (id) initWithObjectGraphContext: (COObjectGraphContext *)aContext
@@ -97,21 +102,6 @@
 	return (contentType !=  nil ? contentType : [super currentObjectType]);
 }
 
-#if 0
-#pragma mark -
-#pragma mark User Interface Item Validation
-
-- (BOOL) validateUserInterfaceItem: (id <NSValidatedUserInterfaceItem>)anItem
-{
-	// NOTE: We must validate Select All manually because we reimplement
-	// -selectAll: action in addition to ETSelectTool.
-	if (sel_isEqual([anItem action], @selector(selectAll:)))
-	{
-		return [[[[self content] layout] attachedTool] respondsToSelector: @selector(selectAll:)];
-	}
-	return NO;
-}
-
 #pragma mark -
 #pragma mark Selection Actions
 
@@ -120,12 +110,39 @@
  * forward -selectAll: to our content attached tool, in case the attached tool 
  * is not the active tool (because some other area is focused e.g. the source 
  * list).
+ *
+ * See -[OMBrowserController selectAllExceptInSourceList:].
  */
 - (IBAction) selectAll: (id)sender
 {
-	[[[[[self content] layout] attachedTool] ifResponds] selectAll: sender];
+	ETTool *tool = [[[self content] layout] attachedTool];
+	ETAssert([tool isKindOfClass: [ETSelectTool class]]);
+
+	// FIXME: Just use [(ETSelectTool *)tool selectAll: sender]
+	if ([[[self content] layout] isWidget])
+	{
+		id widgetView = [(ETWidgetLayout *)[[self content] layout] layoutViewWithoutScrollView];
+
+		[widgetView selectAll: sender];
+		// NOTE: For a ETWidgetLayout, the select tool doesn't become first responder
+		[[ETTool activeTool] makeFirstKeyResponder: widgetView];
+	}
+	else
+	{
+		/* Select but doesn't give the focus */
+		[(ETSelectTool *)tool selectAll: sender];
+
+		// FIXME: -[ETTool makeFirstKeyResponder:] should update the active tool 
+		// transparently using an API such as -updateActiveToolIfNeededForNewResponder:
+		[[ETTool activeTool] makeFirstKeyResponder: [self content]];
+		[ETTool setActiveTool: tool];
+	}	
 }
-#endif
+
+- (IBAction) selectAllExceptInSourceList:(id)sender
+{
+	[self selectAll: sender];
+}
 
 #pragma mark -
 #pragma mark Object Insertion and Deletion Actions

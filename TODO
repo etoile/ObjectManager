@@ -16,7 +16,7 @@ ObjectManager is loosely based on some mockups and ideas:
 Current Work
 ------------
 
-- Fix broken Select All in Edit menu
+- Implement toolbar item validation
 
 - Fix commit crash (Attempted to commit changes to deleted persistent root) on Undo/Redo following a selective undo
 
@@ -41,6 +41,12 @@ Current Work
 - Force grid alignment in the Icon View (letting the user positions icons seems useless)
 
 - Finish Search support in History Browser
+
+- Fix ugly issues in EtoileUI tool related selection management (see -[OMBrowserContentController selectAll:])
+
+- Fix EtoileUI to support some mechanism to declare a initial focused item (similar to -[NSWindow initialFirstResponder])
+
+	- See -[OMAppController browseMainGroup:]
 
 
 Missing Features

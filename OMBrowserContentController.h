@@ -17,8 +17,10 @@
 #import <EtoileUI/CoreObjectUI.h>
 #import "OMController.h"
 
-/** The subcontroller to supervise the view where the source list selection 
-content is presented in an ObjectManager window */
+/** 
+ * The subcontroller to supervise the view where the source list selection
+ * content is presented in an ObjectManager window 
+ */
 @interface OMBrowserContentController : OMController
 {
 	id menuProvider;
@@ -32,19 +34,43 @@ content is presented in an ObjectManager window */
 /** @taskunit Mutating Content */
 
 - (void) prepareForNewRepresentedObject: (id)anObject;
+/**
+ * For New Object action.
+ */
+- (IBAction) add: (id)sender;
+/**
+ * For New Tag action.
+ */
 - (void) addTag: (COGroup *)aTag;
+/**
+ * For Duplicate action.
+ */
 - (void) duplicate;
-
-/** @taskunit Actions */
-
-- (IBAction) selectAll: (id)sender;
+/**
+ * For Delete action.
+ */
 - (IBAction) remove: (id)sender;
+
+/** @taskunit Other Actions */
+
+/** 
+ * For Select All action.
+ */
+- (IBAction) selectAll: (id)sender;
+/**
+ * For Select All action (the selector declared in the Edit menu).
+ */
+- (IBAction) selectAllExceptInSourceList:(id)sender;
 
 @end
 
-/** A category that adds convenient methods for ObjectManager needs */
+/** 
+ * A category that adds convenient methods for ObjectManager needs 
+ */
 @interface COEditingContext (OMAdditions)
-/** Deletes either persistent roots or just the passed inner objects, based on 
-the represented object type (root object or inner object). */
+/** 
+ * Deletes either persistent roots or just the passed inner objects, based on
+ * the represented object type (root object or inner object). 
+ */
 - (void)deleteObjects: (NSSet *)objects;
 @end

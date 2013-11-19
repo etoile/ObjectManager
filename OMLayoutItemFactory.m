@@ -337,6 +337,9 @@
 	ETLayoutItemGroup *itemGroup = [self itemGroupWithSize: size];
 	OMBrowserContentController *contentController = AUTORELEASE([[OMBrowserContentController alloc]
 		initWithObjectGraphContext: [self objectGraphContext]]);
+	ETSelectTool *tool = [ETSelectTool tool];
+	
+	[tool setAllowsMultipleSelection: YES];
 
 	[itemGroup setIdentifier: @"contentView"];
 	[itemGroup setRepresentedObject: aGroup];
@@ -345,7 +348,8 @@
 	[itemGroup setAutoresizingMask: ETAutoresizingFlexibleWidth | ETAutoresizingFlexibleHeight];
 	[itemGroup setHasVerticalScroller: YES];
 	[itemGroup setSource: itemGroup];
-	[itemGroup setLayout: [self listLayoutForBrowser]];	
+	[itemGroup setLayout: [self listLayoutForBrowser]];
+	[[itemGroup layout] setAttachedTool: tool];
 	[itemGroup setController: contentController];
 	[[itemGroup controller] setPersistentObjectContext: [aController persistentObjectContext]];
 	[itemGroup reload];
@@ -437,7 +441,7 @@
 	[[menu lastItem] setKeyEquivalentModifierMask: NSCommandKeyMask | NSShiftKeyMask];
 
 	[menu addItemWithTitle:  _(@"New Object")
-	                action: @selector(add:)
+	                action: @selector(addNewObject:)
 	         keyEquivalent: @"n"];
 
 	[menu addItemWithTitle:  _(@"New Tag")

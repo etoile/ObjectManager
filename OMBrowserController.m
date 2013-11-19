@@ -298,7 +298,7 @@
 
 - (BOOL) isSingleSelectionInSourceList
 {
-	return ([[self selectedObjectsInSourceList] count] == 0);
+	return ([[self selectedObjectsInSourceList] count] == 1);
 }
 
 - (BOOL) hasSelectionInContentView
@@ -309,13 +309,18 @@
 
 - (BOOL) validateUserInterfaceItem: (id <NSValidatedUserInterfaceItem>)anItem
 {
-	if (sel_isEqual([anItem action], @selector(newObject:)))
+	if (sel_isEqual([anItem action], @selector(addNewObject:)))
 	{
 		if ([self isSingleSelectionInSourceList])
 		{
-			return [[[self selectedObjectsInSourceList] firstObject] isKindOfClass: [COLibrary class]];
+			return ([self currentObjectType] != nil);
 		}
 		return NO;
+	}
+	else if (sel_isEqual([anItem action], @selector(delete:))
+	      || sel_isEqual([anItem action], @selector(duplicate:)))
+	{
+		return ([self isSingleSelectionInSourceList] && [self hasSelectionInContentView]);
 	}
 	else if (sel_isEqual([anItem action], @selector(open:))
 	      || sel_isEqual([anItem action], @selector(markVersion:))
@@ -404,9 +409,30 @@
 #pragma mark -
 #pragma mark Object Insertion and Deletion Actions
 
+- (COCollection *) insertionCollectionForNewObject
+{
+	if ([self isSingleSelectionInSourceList] == NO)
+		return nil;
+
+	id selectedObject = [[self selectedObjectsInSourceList] firstObject];
+	BOOL canInsertInto = ([selectedObject isKindOfClass: [COLibrary class]]);
+
+	return (canInsertInto ? selectedObject : nil);
+}
+
+- (ETUTI *) currentObjectType
+{
+	return [[self insertionCollectionForNewObject] objectType];
+}
+
 - (IBAction) add: (id)sender
 {
 	[[contentViewItem controller] add: sender];
+}
+
+- (IBAction) addNewObject: (id)sender
+{
+	[self add: sender];
 }
 
 - (IBAction) addNewObjectFromTemplate: (id)sender
@@ -479,10 +505,21 @@
 	// TODO: Implement New Smart Group...
 }
 
+- (IBAction) duplicate: (id)sender
+{
+	[(OMBrowserContentController *)[contentViewItem controller] duplicate];
+	[[self allObjectGroup] refresh];
+}
+
 - (IBAction) remove: (id)sender
 {
 	[[contentViewItem controller] remove: sender];
 	[[self allObjectGroup] refresh];
+}
+
+- (IBAction) delete: (id)sender
+{
+	[self remove: sender];
 }
 
 #pragma mark -
@@ -669,17 +706,6 @@
 	[[[ETLayoutItemFactory factory] windowGroup] addItem: browser];
 }
 
-- (IBAction) duplicate: (id)sender
-{
-	[(OMBrowserContentController *)[contentViewItem controller] duplicate];
-	[[self allObjectGroup] refresh];
-}
-
-- (IBAction) delete: (id)sender
-{
-	[self remove: sender];
-}
-
 - (IBAction) import: (id)sender
 {
 	// TODO: Implement
@@ -690,6 +716,25 @@
 {
 	// TODO: Implement
 	[self doesNotRecognizeSelector: _cmd];
+}
+
+- (BOOL) isSourceListFocused
+{
+	ETLayoutItem *focusedItem = [[self firstResponderSharingArea] focusedItem];
+
+	return ([focusedItem isEqual: [self sourceListItem]]
+	     || [[[self sourceListItem] selectedItemsInLayout] containsObject: focusedItem]);
+}
+
+- (IBAction) selectAllExceptInSourceList: (id)sender
+{
+	id responder = nil;
+
+	if ([self isSourceListFocused])
+	{
+		responder = [[self contentViewItem] controller];
+	}
+	[ETApp sendAction: @selector(selectAll:) to: responder from: sender];
 }
 
 - (IBAction)undoInSelection: (id)sender
