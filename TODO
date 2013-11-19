@@ -16,7 +16,7 @@ ObjectManager is loosely based on some mockups and ideas:
 Current Work
 ------------
 
-- Disable New Object menu item if the selected object in the source list is not a library
+- Fix broken Select All in Edit menu
 
 - Fix commit crash (Attempted to commit changes to deleted persistent root) on Undo/Redo following a selective undo
 
@@ -45,6 +45,8 @@ Current Work
 
 Missing Features
 ----------------
+
+- Add New Tag For Selection to the Object menu
 
 - Improve Inspector
 
@@ -116,6 +118,11 @@ Missing Features
 
 - Add resize separator between source list, content view and inspector (this means to support resize separators in EtoileUI)
 
+- Implement New Smart Group
+
+	- Will require a dedicated predicate editor (on GNUstep there is no NSPredicateEditor), the best choice is probably to build our own with EtoileUI. This shouldn't be very hard if we add a metamodel for predicate and we use ETModelRenderer to generate the UI. The resulting UI would be much more flexible than the Apple's predicate editor too.
+	
+	
 
 Future Work
 -----------
@@ -140,6 +147,8 @@ Future Work
 
 - Use Small Control Sizes in the Inspector (or at least a small font size)
 
+- Add some Print support, especially for printing Notes (very low-priority)
+
 
 Open Questions
 --------------
@@ -149,3 +158,12 @@ Open Questions
 	- For COGroup/Tag size, we consider that children objects are not really contained and doesn't enter in the size computation (moreover knowing the boundaries for the size computation could be really tricky for nested groups)
 
 - How should we construct the manager window title for a multiple selection in the source list (for now we just use the first selected object name + 'and more')
+
+- Decide whether we want to add Open in New Window or New Window to Object menu
+
+	- Would allow to browse the selection while keeping the currently browsed group visible
+	- Would be disabled for objects that don't appear in the source list
+	
+- Add Show Original to the Object menu for cheap copies or is it enough to provide a button in the Inspector
+
+- Is the Inspector good enough to edit Tags applied to one or several Objects.... Should we also support a contextual popover-like UI or some variation on the Tag filtering UI

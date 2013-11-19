@@ -97,6 +97,36 @@
 	return (contentType !=  nil ? contentType : [super currentObjectType]);
 }
 
+#if 0
+#pragma mark -
+#pragma mark User Interface Item Validation
+
+- (BOOL) validateUserInterfaceItem: (id <NSValidatedUserInterfaceItem>)anItem
+{
+	// NOTE: We must validate Select All manually because we reimplement
+	// -selectAll: action in addition to ETSelectTool.
+	if (sel_isEqual([anItem action], @selector(selectAll:)))
+	{
+		return [[[[self content] layout] attachedTool] respondsToSelector: @selector(selectAll:)];
+	}
+	return NO;
+}
+
+#pragma mark -
+#pragma mark Selection Actions
+
+/**
+ * We want Select All to work even if the content view is not focused, so we 
+ * forward -selectAll: to our content attached tool, in case the attached tool 
+ * is not the active tool (because some other area is focused e.g. the source 
+ * list).
+ */
+- (IBAction) selectAll: (id)sender
+{
+	[[[[[self content] layout] attachedTool] ifResponds] selectAll: sender];
+}
+#endif
+
 #pragma mark -
 #pragma mark Object Insertion and Deletion Actions
 

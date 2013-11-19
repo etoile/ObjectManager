@@ -294,6 +294,42 @@
 }
 
 #pragma mark -
+#pragma mark User Interface Item Validation
+
+- (BOOL) isSingleSelectionInSourceList
+{
+	return ([[self selectedObjectsInSourceList] count] == 0);
+}
+
+- (BOOL) hasSelectionInContentView
+{
+	NSArray *selectedObjects = [self allSelectedObjectsInContentView];
+	return ([selectedObjects count] > 0 && [selectedObjects isEqual: A([self browsedGroup])] == NO);
+}
+
+- (BOOL) validateUserInterfaceItem: (id <NSValidatedUserInterfaceItem>)anItem
+{
+	if (sel_isEqual([anItem action], @selector(newObject:)))
+	{
+		if ([self isSingleSelectionInSourceList])
+		{
+			return [[[self selectedObjectsInSourceList] firstObject] isKindOfClass: [COLibrary class]];
+		}
+		return NO;
+	}
+	else if (sel_isEqual([anItem action], @selector(open:))
+	      || sel_isEqual([anItem action], @selector(markVersion:))
+	      || sel_isEqual([anItem action], @selector(revertTo:))
+	      || sel_isEqual([anItem action], @selector(browseHistory:))
+	      || sel_isEqual([anItem action], @selector(import:))
+	      || sel_isEqual([anItem action], @selector(export:)))
+	{
+		return [self hasSelectionInContentView];
+	}
+	return YES;
+}
+
+#pragma mark -
 #pragma mark Presentation
 
 - (void) showTagFilterEditor
@@ -524,6 +560,12 @@
 	}
 }
 
+- (IBAction) showInspectorInStandaloneWindow: (id)sender
+{
+	// TODO: Implement
+	[self doesNotRecognizeSelector: _cmd];
+}
+
 #pragma mark -
 #pragma mark Other Object Actions
 
@@ -602,12 +644,6 @@
 	[self doesNotRecognizeSelector: _cmd];
 }
 
-- (IBAction) openSelection: (id)sender
-{
-	// TODO: Implement
-	[self doesNotRecognizeSelector: _cmd];
-}
-
 - (IBAction) markVersion: (id)sender
 {
 	// TODO: Implement
@@ -637,6 +673,17 @@
 {
 	[(OMBrowserContentController *)[contentViewItem controller] duplicate];
 	[[self allObjectGroup] refresh];
+}
+
+- (IBAction) delete: (id)sender
+{
+	[self remove: sender];
+}
+
+- (IBAction) import: (id)sender
+{
+	// TODO: Implement
+	[self doesNotRecognizeSelector: _cmd];
 }
 
 - (IBAction) export: (id)sender

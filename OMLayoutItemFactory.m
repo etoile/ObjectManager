@@ -433,63 +433,60 @@
 
 	[menu addItemWithTitle: _(@"New Object From Template…")
 	                action: @selector(addNewObjectFromTemplate:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"n"];
+	[[menu lastItem] setKeyEquivalentModifierMask: NSCommandKeyMask | NSShiftKeyMask];
 
 	[menu addItemWithTitle:  _(@"New Object")
 	                action: @selector(add:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"n"];
 
 	[menu addItemWithTitle:  _(@"New Tag")
 	                action: @selector(addNewTag:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"n"];
+	[[menu lastItem] setKeyEquivalentModifierMask: NSCommandKeyMask | NSAlternateKeyMask];
 
 	[menu addItemWithTitle:  _(@"New Smart Group")
 	                action: @selector(addNewGroup:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"n"];
+	[[menu lastItem] setKeyEquivalentModifierMask: NSCommandKeyMask | NSControlKeyMask];
 
 	[menu addItemWithTitle: _(@"Open")
 	                action: @selector(open:)
-	         keyEquivalent: @""];
-
-	[menu addItemWithTitle: _(@"Open Selection")
-	                action: @selector(openSelection:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"o"];
 
 	[menu addItem: [NSMenuItem separatorItem]];
 
 	[menu addItemWithTitle: _(@"Close")
 	                action: @selector(performClose:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"w"];
 
 	[menu addItem: [NSMenuItem separatorItem]];
 
 	[menu addItemWithTitle: _(@"Mark Current Version as…")
 	                action: @selector(markVersion:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"s"];
 
 	[menu addItemWithTitle: _(@"Revert to…")
 	                action: @selector(revertTo:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"r"];
+	[[menu lastItem] setKeyEquivalentModifierMask: NSCommandKeyMask | NSAlternateKeyMask];
 
-	[menu addItemWithTitle: _(@"Browse History…")
+	[menu addItemWithTitle: _(@"Browse History")
 	                action: @selector(browseHistory:)
-	         keyEquivalent: @""];
-			
+	         keyEquivalent: @"h"];
+	[[menu lastItem] setKeyEquivalentModifierMask: NSCommandKeyMask | NSAlternateKeyMask];
+
 	[menu addItem: [NSMenuItem separatorItem]];
 
-	[menu addItemWithTitle: _(@"Duplicate")
-	                action: @selector(duplicate:)
-	         keyEquivalent: @""];
+	[menu addItemWithTitle: _(@"Import…")
+	                action: @selector(import:)
+	         keyEquivalent: @"i"];
+	[[menu lastItem] setKeyEquivalentModifierMask: NSCommandKeyMask | NSAlternateKeyMask];
 
 	[menu addItemWithTitle: _(@"Export…")
 	                action: @selector(export:)
-	         keyEquivalent: @""];
-			
-	[menu addItem: [NSMenuItem separatorItem]];
-
-	[menu addItemWithTitle: _(@"Show Infos")
-	                action: @selector(showInfos:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"e"];
+	[[menu lastItem] setKeyEquivalentModifierMask: NSCommandKeyMask | NSAlternateKeyMask];
 
 	return menuItem;
 }
@@ -510,42 +507,44 @@
 
 	[menu addItemWithTitle: _(@"Icon")
 	                action: @selector(changePresentationViewFromMenuItem:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"1"];
 	[[menu lastItem] setRepresentedObject: [itemFactory iconLayoutForBrowser]];
 
 	[menu addItemWithTitle:  _(@"List")
 	                action: @selector(changePresentationViewFromMenuItem:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"2"];
 	[[menu lastItem] setRepresentedObject: [itemFactory listLayoutForBrowser]];
 
 	[menu addItemWithTitle: _(@"Note")
 	                action: @selector(changePresentationViewFromMenuItem:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"3"];
 	[[menu lastItem] setRepresentedObject: [itemFactory noteLayoutForBrowser]];
 
 	[menu addItem: [NSMenuItem separatorItem]];
 
 	[menu addItemWithTitle: _(@"Show Inspector")
 	                action: @selector(toggleInspector:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"i"];
 
+	// NOTE: On Mac OS 10.7, using NSAlternateKeyMask doesn't work (probably a reserved keyboard shortcut)
 	[menu addItemWithTitle: _(@"New Inspector")
 	                action: @selector(showInspectorInStandaloneWindow:)
-	         keyEquivalent: @""];
-			
+	         keyEquivalent: @"i"];
+	[[menu lastItem] setKeyEquivalentModifierMask: NSCommandKeyMask | NSControlKeyMask];
+
 	[menu addItem: [NSMenuItem separatorItem]];
 
 	[menu addItemWithTitle: _(@"Infos")
 	                action: @selector(changeInspectorFromMenuItem:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"7"];
 
 	[menu addItemWithTitle: _(@"Tags")
 	                action: @selector(changeInspectorFromMenuItem:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"8"];
 
 	[menu addItemWithTitle: _(@"History")
 	                action: @selector(changeInspectorFromMenuItem:)
-	         keyEquivalent: @""];
+	         keyEquivalent: @"9"];
 
 	return menuItem;
 }
