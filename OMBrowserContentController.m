@@ -69,18 +69,17 @@
 	[[self content] setSelectionIndex: NSNotFound];
 }
 
-- (void)setContent:(ETLayoutItemGroup *)anItem
+- (void)didChangeContent: (ETLayoutItemGroup *)oldContent
+               toContent: (ETLayoutItemGroup *)newContent
 {
-	if ([self content] != nil)
+	if (oldContent != nil)
 	{
-		[self stopObserveObject: [self content]
+		[self stopObserveObject: oldContent
 		    forNotificationName: ETItemGroupSelectionDidChangeNotification];
 	}
-	[super setContent: anItem];
-
-	if (anItem != nil)
+	if (newContent != nil)
 	{
-		[self startObserveObject: anItem
+		[self startObserveObject: newContent
 		     forNotificationName: ETItemGroupSelectionDidChangeNotification
 		                selector: @selector(contentSelectionDidChange:)];
 	}
