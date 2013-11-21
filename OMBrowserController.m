@@ -41,6 +41,7 @@
 {
 	[self stopObserveObject: anItem forNotificationName: ETItemGroupSelectionDidChangeNotification];
 	ASSIGN(contentViewItem, anItem);
+	[self setInitialFocusedItem: anItem];
 	[self startObserveObject: anItem
 	     forNotificationName: ETItemGroupSelectionDidChangeNotification
 	                selector: @selector(contentViewSelectionDidChange:)];
