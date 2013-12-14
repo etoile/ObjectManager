@@ -123,7 +123,7 @@
 	ETAssert([self editingContext] != nil);
 
 	// NOTE: Could be put in a package description plist or something similar.
-	ETModelDescriptionRepository *repo = [[self editingContext] modelRepository];
+	ETModelDescriptionRepository *repo = [[self editingContext] modelDescriptionRepository];
 	ETEntityDescription *dateType = [repo entityDescriptionForClass: [NSDate class]];
 	ETEntityDescription *stringType = [repo entityDescriptionForClass: [NSString class]];
 	ETEntityDescription *entity = [repo entityDescriptionForClass: [COObject class]];
@@ -162,7 +162,7 @@
 
 - (void) registerEntityDescriptionWithName: (NSString *)aName parent: (NSString *)aParentName
 {
-	ETModelDescriptionRepository *repo = [[self editingContext] modelRepository];
+	ETModelDescriptionRepository *repo = [[self editingContext] modelDescriptionRepository];
 	ETEntityDescription *entity = [ETEntityDescription descriptionWithName: aName];
 	
 	[entity setParent: [repo descriptionForName: aParentName]];
