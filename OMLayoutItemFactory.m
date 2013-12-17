@@ -207,10 +207,10 @@
 	                                                   action: @selector(addNewTag:)];
 	ETLayoutItem *newObjectItem = [self buttonWithIconNamed: @"list-add"
 	                                                 target: aController
-	                                                 action: @selector(add:)];
+	                                                 action: @selector(addNewObject:)];
 	ETLayoutItem *removeItem = [self buttonWithIconNamed: @"list-remove" 
 	                                              target: aController
-	                                              action: @selector(remove:)];
+	                                              action: @selector(delete:)];
 	ETLayoutItem *searchFieldItem = [self searchFieldWithTarget: aController 
 	                                                     action: @selector(search:)];
 	ETLayoutItem *filterFieldItem = [self searchFieldWithTarget: aController
@@ -237,7 +237,7 @@
 	[leftItemGroup addItems:
 	 	A([self barElementFromItem: newGroupItem withLabel: _(@"New Tag…")],
 		  [self barElementFromItem: newObjectItem withLabel: _(@"New Object")],
-		  [self barElementFromItem: removeItem withLabel: _(@"Remove")])];
+		  [self barElementFromItem: removeItem withLabel: _(@"Delete")])];
 
 	[rightItemGroup setLayout: [ETLineLayout layoutWithObjectGraphContext: [self objectGraphContext]]];
 	[[rightItemGroup layout] setIsContentSizeLayout: YES];

@@ -127,18 +127,6 @@
 	ETAssert([mainUndoTrack currentNode] != nil);
 }
 
-- (void) prepareInitialFocusedItemInsideItem: (ETLayoutItemGroup *)browser
-{
-	// FIXME: Remove this workaround once we support some mechanism to declare a
-	// initial focused item (similar to -[NSWindow initialFirstResponder])
-	ETLayoutItem *contentViewItem = [browser itemForIdentifier: @"contentView"];
-	id widgetView = [(ETWidgetLayout *)[contentViewItem layout] layoutViewWithoutScrollView];
-
-	ETAssert(widgetView != nil);
-	ETAssert([ETTool activeTool] != nil);
-	[[ETTool activeTool] makeFirstKeyResponder: widgetView];
-}
-
 - (IBAction) browseMainGroup: (id)sender
 {
 	OMModelFactory *modelFactory =
@@ -150,7 +138,7 @@
 	[[itemFactory windowGroup] addItem: browser];
 	[openedGroups addObject: [modelFactory allObjectGroup]];
 
-	// FIXME: Call -prepareInitialFocusedItemInsideItem: with some delay since
+	// FIXME: Call -prepareInitialFocusedItem: with some delay since
 	// the view are not backed by windows yet (i.e. the layout update is run just
 	// before the next event)
 }

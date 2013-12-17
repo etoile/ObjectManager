@@ -12,6 +12,7 @@
 #import "OMCollectionAdditions.h"
 #import "OMConstants.h"
 #import "OMLayoutItemFactory.h"
+#include <objc/runtime.h>
 
 @implementation OMBrowserController
 
@@ -306,6 +307,16 @@
 {
 	NSArray *selectedObjects = [self allSelectedObjectsInContentView];
 	return ([selectedObjects count] > 0 && [selectedObjects isEqual: A([self browsedGroup])] == NO);
+}
+
+- (NSSet *) validatableItems
+{
+	return [NSSet setWithArray: [[self topBarItem] items]];
+}
+
+- (BOOL) validateItem: (ETLayoutItem *)anItem
+{
+	return [self validateUserInterfaceItem: (id)anItem];
 }
 
 - (BOOL) validateUserInterfaceItem: (id <NSValidatedUserInterfaceItem>)anItem

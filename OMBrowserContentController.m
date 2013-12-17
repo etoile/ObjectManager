@@ -124,7 +124,7 @@
 
 		[widgetView selectAll: sender];
 		// NOTE: For a ETWidgetLayout, the select tool doesn't become first responder
-		[[ETTool activeTool] makeFirstKeyResponder: widgetView];
+		[[self firstResponderSharingArea] makeFirstResponder: widgetView];
 	}
 	else
 	{
@@ -133,7 +133,7 @@
 
 		// FIXME: -[ETTool makeFirstKeyResponder:] should update the active tool 
 		// transparently using an API such as -updateActiveToolIfNeededForNewResponder:
-		[[ETTool activeTool] makeFirstKeyResponder: [self content]];
+		[[self firstResponderSharingArea] makeFirstResponder: [self content]];
 		[ETTool setActiveTool: tool];
 	}	
 }
